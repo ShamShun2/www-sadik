@@ -1,0 +1,9 @@
+# Запрещаем прямой доступ к data.json — содержит хеш пароля.
+# Доступ к данным только через api.php?action=load.
+<Files "data.json">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# UTF-8 по умолчанию
+AddDefaultCharset UTF-8
