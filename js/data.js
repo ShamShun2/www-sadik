@@ -2,7 +2,7 @@
 // 🔧 ШАБЛОН: замените тексты, контакты, фото и имена педагогов на свои.
 const DEFAULT = {
   settings: {
-    siteName: "Нур-Малика",
+    siteName: "Нұр-Малика",
     siteTaglineRu: "Тёплый дом для каждого ребёнка",
     siteTaglineKz: "Әр балаға арналған жылы үй",
     phone: "+7 (700) 123 45 67",
@@ -123,8 +123,14 @@ let _serverMode  = false;  // true если сервер ответил при i
 
 function _merge(d) {
   d = d || {};
+  const settings = { ...DEFAULT.settings, ...(d.settings || {}) };
+  // Миграция: устаревшие/неправильные написания → актуальное название садика.
+  const oldNames = ['Нур-Малика', 'Нур - Малика', 'Нұр-Мәліка', 'Солнышко', 'NurAI'];
+  if (oldNames.includes(settings.siteName)) {
+    settings.siteName = DEFAULT.settings.siteName;
+  }
   return {
-    settings:    { ...DEFAULT.settings,    ...(d.settings    || {}) },
+    settings,
     about:       { ...DEFAULT.about,       ...(d.about       || {}), groups: (d.about && d.about.groups) ? d.about.groups : DEFAULT.about.groups },
     news:        d.news        || DEFAULT.news,
     team:        d.team        || DEFAULT.team,
@@ -154,7 +160,16 @@ async function initData() {
   // 2) Fallback: localStorage
   try {
     const s = localStorage.getItem(STORAGE_KEY);
-    _cache = s ? _merge(JSON.parse(s)) : JSON.parse(JSON.stringify(DEFAULT));
+    if (s) {
+      const parsed = JSON.parse(s);
+      _cache = _merge(parsed);
+      // Если миграция изменила имя — пересохраняем сразу, чтобы старое имя не вернулось.
+      if (parsed.settings && parsed.settings.siteName !== _cache.settings.siteName) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(_cache)); } catch {}
+      }
+    } else {
+      _cache = JSON.parse(JSON.stringify(DEFAULT));
+    }
   } catch {
     _cache = JSON.parse(JSON.stringify(DEFAULT));
   }
