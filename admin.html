@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Админ-панель — Нур-Малика</title>
+<title>Админ-панель — Нұр-Малика</title>
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -278,7 +280,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   <div class="login-card">
     <div class="login-logo"><img src="images/logo.png" alt="Логотип" onerror="this.parentElement.innerHTML='🏫'"></div>
     <div class="login-title">Админ-панель</div>
-    <div class="login-sub">Детский сад Нур-Малика</div>
+    <div class="login-sub">Детский сад Нұр-Малика</div>
     <input type="password" class="login-inp" id="pw-input" placeholder="Введите пароль" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">Войти</button>
     <div class="login-err" id="login-err">Неверный пароль</div>
@@ -293,7 +295,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
     <div class="sidebar-logo">
       <div class="sidebar-logo-icon"><img src="images/logo.png" alt="Логотип" onerror="this.parentElement.innerHTML='🏫'"></div>
       <div>
-        <div class="sidebar-logo-text" id="sb-name">Нур-Малика</div>
+        <div class="sidebar-logo-text" id="sb-name">Нұр-Малика</div>
         <div class="sidebar-logo-sub">Админ-панель <span id="mode-badge" style="font-size:10px;padding:1px 6px;border-radius:4px;background:rgba(255,255,255,0.15);margin-left:4px"></span></div>
       </div>
     </div>
@@ -371,7 +373,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
         <div class="card">
           <div class="card-title"><span>🏫</span>Основная информация</div>
           <div class="form-row">
-            <div class="field"><label>Название сайта (RU)</label><input id="s-name" placeholder="Нур-Малика"></div>
+            <div class="field"><label>Название сайта (RU)</label><input id="s-name" placeholder="Нұр-Малика"></div>
             <div class="field"><label>Instagram</label><input id="s-ig" placeholder="@your_kindergarten"></div>
           </div>
           <div class="form-row">
@@ -1718,7 +1720,7 @@ function exportSubmissionsCSV(){
   const a = document.createElement('a');
   const today = new Date().toISOString().slice(0,10);
   a.href = url;
-  a.download = `Заявки_Нур-Малика_${today}.csv`;
+  a.download = `Заявки_Нұр-Малика_${today}.csv`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
